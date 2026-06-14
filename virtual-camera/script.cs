@@ -1,5 +1,10 @@
 using Newtonsoft.Json;
 
+/*
+ * Description: This action serves to make sure that the Virtual Camera functionality is available when needed
+ * Note: Look into starting Virtual Camera when OBS opens if necessary
+ */
+
 public class VirtualCamStatusResponse {
     public bool outputActive { get; set; }
 }
