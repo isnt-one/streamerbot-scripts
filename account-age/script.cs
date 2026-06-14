@@ -5,8 +5,10 @@ using System.Collections.Generic;
  * Description: This action looks up the date a user created their account and sends a formatted span of time to chat
  */
 
+using TimeSpanComponents = (int Years, int Months, int Days, int Hours, int Minutes, double Seconds);
+
 public class CPHInline {
-    private (int Years, int Months, int Days, int Hours, int Minutes, double Seconds) CalculatePreciseAge(DateTime createdAt) {
+    private TimeSpanComponents CalculatePreciseAge(DateTime createdAt) {
         DateTime now = DateTime.UtcNow;
         int years = now.Year - createdAt.Year;
         int months = now.Month - createdAt.Month;
@@ -29,7 +31,7 @@ public class CPHInline {
             timeSpan.Seconds + timeSpan.Milliseconds / 1000.0);
     }
 
-    private string FormatAge((int Years, int Months, int Days, int Hours, int Minutes, double Seconds) age) {
+    private string FormatAge(TimeSpanComponents age) {
         List<string> parts = new List<string>();
 
         if (age.Years > 0)   parts.Add($"{age.Years} {(age.Years == 1 ? "year" : "years")}");
