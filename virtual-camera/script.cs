@@ -10,10 +10,10 @@ public class VirtualCamStatusResponse {
 }
 
 public class CPHInline {
-    public void GetVirtualCamStatus(out bool isVirtualCameraActive) {
+    public void GetVirtualCamStatus(out bool isVirtualCamActive) {
         string responseString = CPH.ObsSendRaw("GetVirtualCamStatus", "");
         VirtualCamStatusResponse data = JsonConvert.DeserializeObject<VirtualCamStatusResponse>(responseString);
-        isVirtualCameraActive = data.outputActive;
+        isVirtualCamActive = data.outputActive;
     }
 
     public bool Execute() {
@@ -22,12 +22,12 @@ public class CPHInline {
             return false;
         }
         
-        this.GetVirtualCamStatus(out bool isVirtualCameraActive);
-        if (!isVirtualCameraActive) {
+        this.GetVirtualCamStatus(out bool isVirtualCamActive);
+        if (!isVirtualCamActive) {
             CPH.ObsSendRaw("StartVirtualCam", "");
-            CPH.SendMessage("Virtual camera started");
+            CPH.SendMessage("Virtual cam started");
         } else {
-            CPH.SendMessage("Error: Could not start virtual camera");
+            CPH.SendMessage("Virtual cam is already running");
         }
         
         return true;
