@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-public class CPHInline
-{
-    public class TransitionListResponse
-    {
+/*
+ * Description: This action will randomly select a stinger transition from your created transitions list
+ * Note: Use the OBS scene changed trigger to use this action. Place a short delay action before this action if necessary.
+ */
+
+public class CPHInline {
+    public class TransitionListResponse {
         public string currentSceneTransitionName { get; set; }
         public string currentSceneTransitionUuid { get; set; }
         public string currentSceneTransitionKind { get; set; }
         public List<TransitionItem> transitions { get; set; }
     }
 
-    public class TransitionItem
-    {
+    public class TransitionItem {
         public string transitionName { get; set; }
         public string transitionUuid { get; set; }
         public string transitionKind { get; set; }
