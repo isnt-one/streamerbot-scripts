@@ -28,7 +28,20 @@ public class CPHInline {
         public string transitionName { get; set; }
     }
 
+    public class TransitionCursorResponse {
+        public double transitionCursor { get; set; }
+    }
+    
     public bool Execute() {
+        string cursorResponse = CPH.ObsSendRaw("GetCurrentSceneTransitionCursor", "{}");
+        if (!string.IsNullOrWhiteSpace(cursorResponse)) {
+            var cursorData = JsonConvert.DeserializeObject<TransitionCursorResponse>(cursorResponse);
+            if (cursorData != null && cursorData.transitionCursor < 1.0) {
+                CPH.LogInfo($"Transition currently in progress (cursor: {cursorData.transitionCursor:F3}) — skipping change");
+                return false;
+            }
+        }
+        
         string obsResponse = CPH.ObsSendRaw("GetSceneTransitionList", "{}");
         if (string.IsNullOrWhiteSpace(obsResponse)) {
             CPH.LogWarn("No response data received");
